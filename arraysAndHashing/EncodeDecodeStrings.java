@@ -12,7 +12,7 @@ public class EncodeDecodeStrings {
         }
         for(String str : strs){
             sb.append(str.length());
-            sb.append(",#");
+            sb.append("#");
             sb.append(str);
         }
 
@@ -24,7 +24,20 @@ public class EncodeDecodeStrings {
             return new ArrayList<>();
         }
         List<String> result = new ArrayList<>();
-        String[] splitStrArr = str.split(",#");
+        int i=0;
+        //through iteration string only. -> more time
+        while(i<str.length()){
+            int j =i;
+            while(str.charAt(j)!='#'){
+                j++;
+            }
+            int length = Integer.valueOf(str.substring(i,j));
+            result.add(str.substring(j+1, j+length+1));
+            i=j+length+1;
+        }
+
+        //using Array.  -> more space
+        /*String[] splitStrArr = str.split(",#");
         int length = Integer.parseInt(splitStrArr[0]);
         if (length==0 && splitStrArr.length==1){
             return List.of(new String[]{""});
@@ -36,7 +49,7 @@ public class EncodeDecodeStrings {
             }
             length = Integer.valueOf(splitStrArr[i].substring(length));
         }
-
+*/
         return result;
     }
 
